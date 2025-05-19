@@ -1,0 +1,15 @@
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/queue.c
+pencil\queue.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdlib.h
+pencil\queue.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\string.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+pencil\queue.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stddef.h
+pencil\queue.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdint.h
+pencil\queue.o: ../Core/Inc/FreeRTOSConfig.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+pencil\queue.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h

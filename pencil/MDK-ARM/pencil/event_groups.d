@@ -1,0 +1,15 @@
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
+pencil\event_groups.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdlib.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+pencil\event_groups.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stddef.h
+pencil\event_groups.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdint.h
+pencil\event_groups.o: ../Core/Inc/FreeRTOSConfig.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+pencil\event_groups.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h

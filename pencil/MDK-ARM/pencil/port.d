@@ -1,0 +1,12 @@
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+pencil\port.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stddef.h
+pencil\port.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdint.h
+pencil\port.o: ../Core/Inc/FreeRTOSConfig.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+pencil\port.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

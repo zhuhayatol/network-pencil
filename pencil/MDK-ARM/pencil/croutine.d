@@ -1,0 +1,14 @@
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/croutine.c
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+pencil\croutine.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stddef.h
+pencil\croutine.o: F:\keilmdk540\ARM\ARMCompiler_506\Bin\..\include\stdint.h
+pencil\croutine.o: ../Core/Inc/FreeRTOSConfig.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h
+pencil\croutine.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
