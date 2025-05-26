@@ -4,6 +4,31 @@
             "path": "."
         }
     ],
-    "settings": {},
+    "settings": {
+        "files.associations": {
+            "iic.h": "c",
+            "stm32f4xx_hal.h": "c",
+            "hardware.h": "c",
+            "config.h": "c",
+            "cyberrypotter.h": "c",
+            "gpio.h": "c",
+            "main.h": "c",
+            "mpu6050_reg.h": "c",
+            "imu.h": "c",
+            "mpu6050get.h": "c",
+            "show.h": "c",
+            "stdio.h": "c",
+            "inv_mpu.h": "c",
+            "compare": "c",
+            "freertos.h": "c",
+            "task.h": "c",
+            "key_get.h": "c",
+            "tim.h": "c",
+            "cmsis_os.h": "c",
+            "weights.h": "c",
+            "nnom.h": "c",
+            "model.h": "c"
+        }
+    },
     "extensions": {}
 }

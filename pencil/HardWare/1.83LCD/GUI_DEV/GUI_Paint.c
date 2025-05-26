@@ -16,7 +16,7 @@
 * 1.Fix: 
 *       Paint_DrawNum
 *         Fixed a BUG where the Paint_DrawNum function failed to display 0
-* 2.Add： Paint_DrawFloatNum
+* 2.Add＄1�7 Paint_DrawFloatNum
 *     Can display FloatNum   
 *
 * -----------------------------------------------------------------------------
@@ -673,6 +673,7 @@ void Paint_DrawNum(UWORD Xpoint, UWORD Ypoint, int32_t Nummber,
     
     //show
     Paint_DrawString_EN(Xpoint, Ypoint, (const char*)pStr, Font, Color_Background, Color_Foreground);
+
 }
 /******************************************************************************
 function:	Display float number

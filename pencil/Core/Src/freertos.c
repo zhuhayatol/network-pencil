@@ -18,10 +18,10 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "FreeRTOS.h"
-#include "task.h"
+
+
 #include "main.h"
-#include "cmsis_os.h"
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,6 +47,10 @@ typedef StaticQueue_t osStaticMessageQDef_t;
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+// osMutexId_t printfMutexHandle;
+// const osMutexAttr_t printfMutex_attributes = {
+//     .name = "printfMutex"
+// };
 
 /* USER CODE END Variables */
 /* Definitions for Mpu6050Task */
@@ -63,7 +67,7 @@ const osThreadAttr_t Mpu6050Task_attributes = {
 };
 /* Definitions for ShowTask */
 osThreadId_t ShowTaskHandle;
-uint32_t ShowTaskBuffer[  512 ];
+uint32_t ShowTaskBuffer[ 512 ];
 osStaticThreadDef_t ShowTaskControlBlock;
 const osThreadAttr_t ShowTask_attributes = {
   .name = "ShowTask",
@@ -71,11 +75,11 @@ const osThreadAttr_t ShowTask_attributes = {
   .cb_size = sizeof(ShowTaskControlBlock),
   .stack_mem = &ShowTaskBuffer[0],
   .stack_size = sizeof(ShowTaskBuffer),
-  .priority = (osPriority_t) osPriorityHigh1,
+  .priority = (osPriority_t) osPriorityAboveNormal1,
 };
 /* Definitions for DataTransTask */
 osThreadId_t DataTransTaskHandle;
-uint32_t DataTransTaskBuffer[ 128 ];
+uint32_t DataTransTaskBuffer[ 512 ];
 osStaticThreadDef_t DataTransTaskControlBlock;
 const osThreadAttr_t DataTransTask_attributes = {
   .name = "DataTransTask",
@@ -83,7 +87,7 @@ const osThreadAttr_t DataTransTask_attributes = {
   .cb_size = sizeof(DataTransTaskControlBlock),
   .stack_mem = &DataTransTaskBuffer[0],
   .stack_size = sizeof(DataTransTaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityAboveNormal2,
 };
 /* Definitions for DataGetTask */
 osThreadId_t DataGetTaskHandle;
@@ -95,11 +99,11 @@ const osThreadAttr_t DataGetTask_attributes = {
   .cb_size = sizeof(DataGetTaskControlBlock),
   .stack_mem = &DataGetTaskBuffer[0],
   .stack_size = sizeof(DataGetTaskBuffer),
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for ModelTask */
 osThreadId_t ModelTaskHandle;
-uint32_t ModelTaskBuffer[ 512 ];
+uint32_t ModelTaskBuffer[ 1024 ];
 osStaticThreadDef_t ModelTaskControlBlock;
 const osThreadAttr_t ModelTask_attributes = {
   .name = "ModelTask",
@@ -107,7 +111,7 @@ const osThreadAttr_t ModelTask_attributes = {
   .cb_size = sizeof(ModelTaskControlBlock),
   .stack_mem = &ModelTaskBuffer[0],
   .stack_size = sizeof(ModelTaskBuffer),
-  .priority = (osPriority_t) osPriorityLow,
+  .priority = (osPriority_t) osPriorityAboveNormal3,
 };
 /* Definitions for Mpu6050Queue */
 osMessageQueueId_t Mpu6050QueueHandle;
@@ -137,6 +141,11 @@ const osMessageQueueAttr_t ModelgetQueue_attributes = {
 
 /* USER CODE END FunctionPrototypes */
 
+void Mpu6050(void *argument);
+void Show(void *argument);
+void DataTrans(void *argument);
+void DataGet(void *argument);
+void Model(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -152,6 +161,8 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
+  // printfMutexHandle = osMutexNew(&printfMutex_attributes);
+    
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
@@ -206,20 +217,20 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_Mpu6050 */
-void Mpu6050(void *argument)
-{
-  /* USER CODE BEGIN Mpu6050 */
-  /* Infinite loop */
+// void Mpu6050(void *argument)
+// {
+//   /* USER CODE BEGIN Mpu6050 */
+// //   /* Infinite loop */
 
-  uint32_t lastWakeTime = xTaskGetTickCount();
-  for(;;)
-  {
-    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET);
+// //   uint32_t lastWakeTime = xTaskGetTickCount();
+// //   for(;;)
+// //   {
+// //     vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));
+// //     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, GPIO_PIN_SET);
 
-  }
-  /* USER CODE END Mpu6050 */
-}
+// //   }
+//   /* USER CODE END Mpu6050 */
+// }
 
 /* USER CODE BEGIN Header_Show */
 /**
@@ -231,11 +242,11 @@ void Mpu6050(void *argument)
 // void Show(void *argument)
 // {
 //   /* USER CODE BEGIN Show */
-//   /* Infinite loop */
-//   for(;;)
-//   {
+// //   /* Infinite loop */
+// //   for(;;)
+// //   {
 
-//   }
+// //   }
 //   /* USER CODE END Show */
 // }
 
@@ -250,10 +261,15 @@ void DataTrans(void *argument)
 {
   /* USER CODE BEGIN DataTrans */
   /* Infinite loop */
+   //printf("DataTrans Task Started\r\n");
   uint32_t lastWakeTime = xTaskGetTickCount();
   for(;;)
   {
-    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//50hzµÄÈÎÎñÆµÂÊ
+    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//10hz
+    Key_Process();
+
+    
+    //printf("DataTrans Task Running\r\n");
   }
   /* USER CODE END DataTrans */
 }
@@ -269,11 +285,12 @@ void DataGet(void *argument)
 {
   /* USER CODE BEGIN DataGet */
   /* Infinite loop */
+  //printf("DataGet Task Started\r\n");
   uint32_t lastWakeTime = xTaskGetTickCount();
   for(;;)
   {
-    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//50hzµÄÈÎÎñÆµÂÊ
-
+    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//50hzï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½
+    //printf("DataGet Task Running\r\n");
   }
   /* USER CODE END DataGet */
 }
@@ -285,17 +302,20 @@ void DataGet(void *argument)
 * @retval None
 */
 /* USER CODE END Header_Model */
-void Model(void *argument)
-{
-  /* USER CODE BEGIN Model */
-  /* Infinite loop */
-  uint32_t lastWakeTime = xTaskGetTickCount();
-  for(;;)
-  {
-    vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//50hzµÄÈÎÎñÆµÂÊ
-  }
-  /* USER CODE END Model */
-}
+// void Model(void *argument)
+// {
+//   /* USER CODE BEGIN Model */
+//   /* Infinite loop */
+//   //printf("Model Task Started\r\n");
+//   uint32_t lastWakeTime = xTaskGetTickCount();
+//   for(;;)
+//   {
+
+//     vTaskDelayUntil(&lastWakeTime,F2T(RATE_10_HZ));//50hzï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½
+//    // printf("Model Task Running\r\n");
+//   }
+//   /* USER CODE END Model */
+// }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */

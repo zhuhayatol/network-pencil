@@ -37,6 +37,22 @@ extern "C" {
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "hardware.h"
+#include "IIC.h"
+#include "MPU6050_Reg.h"
+#include "inv_mpu.h"
+#include "inv_mpu_dmp_motion_driver.h"
+#include "MPU6050.h"
+#include "mpu6050get.h"
+#include "IMU.h"
+#include "FreeRTOS.h"
+#include "config.h"
+#include "CyberryPotter.h"
+#include "MPU6050get.h"
+#include "key_get.h"
+#include "model.h"
+#include "nnom.h"
+#include "task.h"
 
 /* USER CODE END Includes */
 
@@ -90,8 +106,13 @@ void Model(void *argument);
 #define DC_GPIO_Port GPIOA
 #define CS_Pin GPIO_PIN_6
 #define CS_GPIO_Port GPIOB
+// Ìí¼ÓÄ£ÐÍ×´Ì¬Ã¶¾Ù
 
 /* USER CODE BEGIN Private defines */
+extern float IMU_Data_mGyro[IMU_SEQUENCE_LENGTH_MAX][3];
+extern float IMU_Data_mAcc[IMU_SEQUENCE_LENGTH_MAX][3];
+extern uint16_t key;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Öµ
+extern uint16_t imu_sample_count;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 /* USER CODE END Private defines */
 

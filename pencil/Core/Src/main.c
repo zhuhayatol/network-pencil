@@ -18,7 +18,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "cmsis_os.h"
+#include "spi.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -38,12 +42,17 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+  uint16_t imu_sample_count = 0;
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+void DWT_Init(void)
+{
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+    DWT->CYCCNT = 0;
+}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -81,7 +90,9 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  DWT_Init();
+  Key_Init();
+  
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -96,8 +107,10 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   MX_TIM3_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   printf("STM32F4 UART Printf Example\r\n");
+  MPU6050_Init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -200,12 +213,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM2)
+  if(htim->Instance == TIM2)
   {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  if(htim->Instance == TIM4)
+    {
+        if(imu_sample_state == SAMPLE_RUNNING)
+        {
+            //printf("imu_sample_count = %d\r\n", imu_sample_count);
+            if(imu_sample_count < IMU_SEQUENCE_LENGTH_MAX)
+            {
+                IMU_Get_Data(imu_sample_count++);
+                HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);  // LEDָʾ����״̬
+            }
+            else
+            {
+                IMU_Sample_Stop();
+                IMU_Data_Print();
+            }
+        }
+    }
   /* USER CODE END Callback 1 */
 }
 

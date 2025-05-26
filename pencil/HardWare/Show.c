@@ -8,6 +8,9 @@
 #include "image.h"//该文件作用是包含图像数据
 #include "cmsis_os.h" // 添加FreeRTOS头文件
 
+
+void show_board(void);
+
 void Show(void *argument)
 {
 
@@ -43,22 +46,35 @@ void Show(void *argument)
     
 
   	uint32_t lastWakeTime = xTaskGetTickCount();
+   //printf("Show Task Started\r\n");
 
   	while(1)
     {
-        vTaskDelayUntil(&lastWakeTime,F2T(RATE_1000_HZ));//50hz的任务频率
+        vTaskDelayUntil(&lastWakeTime,F2T(RATE_50_HZ));//50hz的任务频率
+        //printf("Show Task Running\r\n");
 
-       
-        Paint_DrawRectangle(125, 10, 225, 58, RED     ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-        Paint_DrawLine  (125, 10, 225, 58,    MAGENTA ,DOT_PIXEL_2X2,LINE_STYLE_SOLID);
-        Paint_DrawLine  (225, 10, 125, 58,    MAGENTA ,DOT_PIXEL_2X2,LINE_STYLE_SOLID);
-        Paint_DrawCircle(150,100,  25,        BLUE    ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-        Paint_DrawCircle(180,100,  25,        BLACK   ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-        Paint_DrawCircle(210,100,  25,        RED     ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-        Paint_DrawCircle(165,125,  25,        YELLOW  ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
-        Paint_DrawCircle(195,125,  25,        GREEN   ,DOT_PIXEL_2X2,DRAW_FILL_EMPTY);
+        Paint_DrawFloatNum(130, 20 ,IMU_Data_mAcc[0][0], 3, &Font20,  WHITE,  BLACK);
+        Paint_DrawFloatNum(130, 90 ,IMU_Data_mAcc[0][1], 3, &Font20,  WHITE,  BLACK);
+        Paint_DrawFloatNum(130, 160 ,IMU_Data_mAcc[0][2], 3, &Font20,  WHITE,  BLACK);
 
 
+        show_board();
     }
 
+}
+
+//展示按键值
+void show_board(void)
+{
+      static uint16_t board = 0;
+      static uint16_t last_board = 0;
+        board = Key_Get();
+        
+        if (last_board != board)
+        {
+           Paint_ClearWindows(130, 190, 200, 210, WHITE); 
+        }
+        last_board = board;
+
+        Paint_DrawNum(130, 190 ,board,  &Font20,  WHITE,  BLACK);
 }
